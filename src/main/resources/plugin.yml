@@ -1,0 +1,21 @@
+name: CursedPlugin
+version: '${project.version}'
+main: me.muratcan.cursedplugin.CursedPlugin
+api-version: 1.19
+authors: [ MyEye ]
+commands:
+  heal:
+    description: Oyuncunun canını yeniler
+    usage: /heal
+
+  god:
+    description: kişiyi sadece ölümsüz yapar
+    usage: /god
+
+  invisible:
+    description: kişiyi görünmez yapar
+    usage: /invisible
+
+  beslen:
+    description: açlığınızı doldurur
+    usage: /beslen
