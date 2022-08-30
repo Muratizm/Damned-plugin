@@ -12,63 +12,84 @@ public class AdminCommands implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
 
-        if(command.getName().equalsIgnoreCase("invisible")){
+        if (command.getName().equalsIgnoreCase("invisible")) {
 
 
-            if(sender instanceof Player){
+            if (sender instanceof Player) {
 
 
                 Player player = (Player) sender;
 
-                if(player.isInvisible()){
+                if (player.isOp()) {
 
-                    player.setInvisible(false);
+                    if (player.isInvisible()) {
+                        player.sendMessage("Görünmezlik kapandı");
+
+                        player.setInvisible(false);
+                    } else {
+                        player.sendMessage("Görünmezlik açıldı");
+
+                        player.setInvisible(true);
+                    }
+
+                } else {
+
+                    player.sendMessage("Bu komutu sadece yetkililer kullanabilir");
+
                 }
-                else {
-                    player.setInvisible(true);
-                }
-
-
 
 
             }
-        }
-        else if(command.getName().equalsIgnoreCase("god")){
+        } else if (command.getName().equalsIgnoreCase("god")) {
 
-            if (sender instanceof Player){
+            if (sender instanceof Player) {
 
                 Player player = (Player) sender;
 
-                if(player.isInvulnerable()){
+                if (player.isOp()) {
 
-                    player.setInvulnerable(false);
+
+                    if (player.isInvulnerable()) {
+                      player.sendMessage("Ölümsüzlük kapandı");
+                        player.setInvulnerable(false);
+                    } else {
+                        player.sendMessage("Ölümsüzlük açıldı");
+                        player.setInvulnerable(true);
+                    }
+
                 }
-                else {
-                    player.setInvulnerable(true);
+                else{
+                    player.sendMessage("Bu komutu sadece yetkililer kullanabilir");
                 }
+
 
             }
 
-        }
-        else if(command.getName().equalsIgnoreCase("heal")){
+        } else if (command.getName().equalsIgnoreCase("heal")) {
 
-            if(sender instanceof Player){
+            if (sender instanceof Player) {
 
                 Player player = (Player) sender;
 
-                if (player.getHealth() < 20){
+                if (player.isOp()) {
 
-                    player.setHealth(20.00);
+                    if (player.getHealth() < 20) {
+
+
+                        player.setHealth(20.00);
+                        player.sendMessage("Can barınız dolduruldu");
+                    }
 
                 }
+                else{
+                    player.sendMessage("Bu komutu sadece yetkililer kullanabilir");
+                }
+
 
             }
 
 
         }
-
-
-
 
 
         return true;
