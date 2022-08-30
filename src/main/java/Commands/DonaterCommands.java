@@ -1,5 +1,6 @@
 package Commands;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -16,6 +17,7 @@ public class DonaterCommands implements CommandExecutor {
 
                 Player player = (Player) commandSender;
                 player.setFoodLevel(20);
+                player.sendMessage(ChatColor.GREEN+ "Açlı barınız tazelendi");
 
 
             }

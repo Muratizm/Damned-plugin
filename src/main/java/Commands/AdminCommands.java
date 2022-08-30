@@ -1,5 +1,6 @@
 package Commands;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -23,18 +24,18 @@ public class AdminCommands implements CommandExecutor {
                 if (player.isOp()) {
 
                     if (player.isInvisible()) {
-                        player.sendMessage("Görünmezlik kapandı");
+                        player.sendMessage(ChatColor.RED + "Görünmezlik kapandı");
 
                         player.setInvisible(false);
                     } else {
-                        player.sendMessage("Görünmezlik açıldı");
+                        player.sendMessage(ChatColor.GREEN + "Görünmezlik açıldı");
 
                         player.setInvisible(true);
                     }
 
                 } else {
 
-                    player.sendMessage("Bu komutu sadece yetkililer kullanabilir");
+                    player.sendMessage(ChatColor.RED + "Bu komutu sadece yetkililer kullanabilir");
 
                 }
 
@@ -50,16 +51,15 @@ public class AdminCommands implements CommandExecutor {
 
 
                     if (player.isInvulnerable()) {
-                      player.sendMessage("Ölümsüzlük kapandı");
+                        player.sendMessage(ChatColor.RED + "Ölümsüzlük kapandı");
                         player.setInvulnerable(false);
                     } else {
-                        player.sendMessage("Ölümsüzlük açıldı");
+                        player.sendMessage(ChatColor.GREEN + "Ölümsüzlük açıldı");
                         player.setInvulnerable(true);
                     }
 
-                }
-                else{
-                    player.sendMessage("Bu komutu sadece yetkililer kullanabilir");
+                } else {
+                    player.sendMessage(ChatColor.RED + "Bu komutu sadece yetkililer kullanabilir");
                 }
 
 
@@ -77,12 +77,11 @@ public class AdminCommands implements CommandExecutor {
 
 
                         player.setHealth(20.00);
-                        player.sendMessage("Can barınız dolduruldu");
+                        player.sendMessage(ChatColor.GREEN + "Can barınız dolduruldu");
                     }
 
-                }
-                else{
-                    player.sendMessage("Bu komutu sadece yetkililer kullanabilir");
+                } else {
+                    player.sendMessage(ChatColor.RED + "Bu komutu sadece yetkililer kullanabilir");
                 }
 
 
