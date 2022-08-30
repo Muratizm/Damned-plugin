@@ -19,3 +19,15 @@ commands:
   beslen:
     description: açlığınızı doldurur
     usage: /beslen
+
+  evkaydet:
+    description: olduğunuz konumu kaydedersiniz
+    usage: /evkaydet
+
+  ev:
+    description: kaydilen konuma geri ışınlar
+    usage: /ev
+
+  geri:
+    description: Sizi öldüğünüz konuma geri gönderir
+    usage: /geri
