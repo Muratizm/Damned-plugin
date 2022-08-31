@@ -31,3 +31,7 @@ commands:
   geri:
     description: Sizi öldüğünüz konuma geri gönderir
     usage: /geri
+
+  esyaver:
+    description: elinizde tutuğunuz bir eşyayı istediğiniz kişiye gönderir
+    usage: /esyaver
