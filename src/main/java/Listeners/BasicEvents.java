@@ -1,21 +1,26 @@
 package Listeners;
 
+import me.muratcan.cursedplugin.CursedPlugin;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 
 public class BasicEvents implements Listener {
 
-    private boolean glown;
-    private Player player;
+
+    private final CursedPlugin plugin;
+
+    public BasicEvents(CursedPlugin plugin) {
+        this.plugin = plugin;
+    }
 
     @EventHandler
     public void onPlayerJoined(PlayerJoinEvent e) {
 
-        player = (Player) e;
         System.out.println(e.getPlayer().getAddress());
 
 
@@ -23,19 +28,17 @@ public class BasicEvents implements Listener {
 
         if (!e.getPlayer().hasPlayedBefore()) {
 
-            player.setGlowing(true);
 
             e.getPlayer().setLevel(10);
 
         }
-
 
     }
 
     @EventHandler
     public void WhenPlayerDead(PlayerDeathEvent event) {
 
-        player.setGlowing(false);
+
     }
 
 
@@ -43,6 +46,19 @@ public class BasicEvents implements Listener {
     public void onPlayerLeaved(PlayerQuitEvent e) {
 
         e.setQuitMessage(e.getPlayer() + " Sunucudan ayrıldı");
+
+    }
+
+    @EventHandler
+    public void onPlayerRespawned(PlayerRespawnEvent event) {
+
+
+        if (event.getPlayer().getBedSpawnLocation() == null) {
+
+            event.setRespawnLocation(plugin.getConfig().getLocation("evkaydet"));
+        } else {
+            event.setRespawnLocation(event.getPlayer().getBedSpawnLocation());
+        }
 
     }
 
