@@ -4,18 +4,23 @@ import me.muratcan.cursedplugin.CursedPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 
 public class PlayerCommands implements CommandExecutor {
     private final CursedPlugin plugin;
 
-    public PlayerCommands(CursedPlugin cursedPlugin){
+    public PlayerCommands(CursedPlugin cursedPlugin) {
         this.plugin = cursedPlugin;
     }
 
@@ -33,9 +38,9 @@ public class PlayerCommands implements CommandExecutor {
                 Player player = (Player) commandSender;
 
 
-             plugin.getConfig().set("evkaydet", player.getPlayer().getLocation());
-             plugin.saveConfig();
-             player.sendMessage("Ev konumu kaydedildi");
+                plugin.getConfig().set("evkaydet", player.getPlayer().getLocation());
+                plugin.saveConfig();
+                player.sendMessage("Ev konumu kaydedildi");
 
 
             }
@@ -80,30 +85,48 @@ public class PlayerCommands implements CommandExecutor {
 
 
             }
-
+            //Not work
         } else if (command.getName().equalsIgnoreCase("esyaver")) {
             if (commandSender instanceof Player) {
 
                 Player player = (Player) commandSender;
 
-                    String s1 = strings[1];
-                    Player player1 = Bukkit.getServer().getPlayerExact(s1);
-                    if (player1 != null) {
-                        ItemStack item = player.getInventory().getItemInMainHand();
-                        player.getInventory().remove(player.getInventory().getItemInMainHand());
-                        player1.getInventory().setItem(1, item);
-                        player.sendMessage(ChatColor.GREEN + "Eşya başarıyla gönderildi");
-                    } else {
-                        player.sendMessage(ChatColor.YELLOW + "Gönderilmek istenilen oyuncu bulunamadı");
-                    }
-
-
-
+                String s1 = strings[1];
+                Player player1 = Bukkit.getServer().getPlayerExact(s1);
+                if (player1 != null) {
+                    ItemStack item = player.getInventory().getItemInMainHand();
+                    player.getInventory().remove(player.getInventory().getItemInMainHand());
+                    player1.getInventory().setItem(1, item);
+                    player.sendMessage(ChatColor.GREEN + "Eşya başarıyla gönderildi");
+                } else {
+                    player.sendMessage(ChatColor.YELLOW + "Gönderilmek istenilen oyuncu bulunamadı");
+                }
 
 
             }
 
 
+        } else if (command.getName().equalsIgnoreCase("ekipmanlar")) {
+
+            if (commandSender instanceof Player) {
+
+                Player player = (Player) commandSender;
+
+                //Starter
+                ArrayList<String>lore1 = new ArrayList<>();
+                lore1.add("Bir noktadan başlamak gerek");
+                Inventory inventory = Bukkit.createInventory(player, 8, ChatColor.DARK_PURPLE + "Ekipmanlar");
+                ItemStack itemStack1 = new ItemStack(Material.COAL);
+                ItemMeta itemMeta = itemStack1.getItemMeta();
+                itemMeta.addEnchant(Enchantment.BINDING_CURSE, 666, true);
+                itemMeta.setLore(lore1);
+                itemMeta.setDisplayName(ChatColor.AQUA + "Başlangıç Ekipmanları");
+                inventory.setItem(0, itemStack1);
+
+
+
+                player.openInventory(inventory);
+            }
         }
 
 
