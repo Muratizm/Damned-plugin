@@ -35,3 +35,7 @@ commands:
   esyaver:
     description: elinizde tutuğunuz bir eşyayı istediğiniz kişiye gönderir
     usage: /esyaver
+
+  ekipmanlar:
+    description: Belli bir sürede bir birkaç eşya temin eder
+    usage: /ekipmanlar
