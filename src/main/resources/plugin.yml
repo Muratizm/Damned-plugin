@@ -4,38 +4,43 @@ main: me.muratcan.cursedplugin.CursedPlugin
 api-version: 1.19
 authors: [ MyEye ]
 commands:
-  heal:
-    description: Oyuncunun canını yeniler
-    usage: /heal
+  iyileş:
+    description: Oyuncunun canını yeniler.
+    usage: /iyileş
 
-  god:
-    description: kişiyi sadece ölümsüz yapar
-    usage: /god
+  tanrı:
+    description: kişiyi sadece ölümsüz yapar.
+    usage: /tanrı
 
-  invisible:
-    description: kişiyi görünmez yapar
-    usage: /invisible
+  görünmezlik:
+    description: kişiyi görünmez yapar.
+    usage: /görünmezlik
 
   beslen:
-    description: açlığınızı doldurur
+    description: açlığınızı doldurur.
     usage: /beslen
 
   evkaydet:
-    description: olduğunuz konumu kaydedersiniz
+    description: olduğunuz konumu kaydedersiniz.
     usage: /evkaydet
 
   ev:
-    description: kaydilen konuma geri ışınlar
+    description: kaydilen konuma geri ışınlar.
     usage: /ev
 
   geri:
-    description: Sizi öldüğünüz konuma geri gönderir
+    description: Sizi öldüğünüz konuma geri gönderir.
     usage: /geri
 
   esyaver:
-    description: elinizde tutuğunuz bir eşyayı istediğiniz kişiye gönderir
-    usage: /esyaver
+    description: elinizde tutuğunuz bir eşyayı istediğiniz kişiye gönderir.
+    usage: /esyaver <Oyuncu>
 
   ekipmanlar:
-    description: Belli bir sürede bir birkaç eşya temin eder
+    description: Belli bir sürede bir birkaç eşya temin eder.
     usage: /ekipmanlar
+
+
+  tamiret:
+    description: elinizde tuttuğunuz ekipmanı tamir eder.
+    usage: /tamiret
