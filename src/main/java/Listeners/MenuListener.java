@@ -2,14 +2,26 @@ package Listeners;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.HashMap;
+import java.util.UUID;
 
 public class MenuListener implements Listener {
 
+        private HashMap<UUID, Long> cooldown;
+
+        public MenuListener(){
+
+            this.cooldown = new HashMap<>();
+
+        }
 
     @EventHandler
     public void KitMenu(InventoryClickEvent event) {
@@ -24,16 +36,82 @@ public class MenuListener implements Listener {
                 return;
             }
 
-            if (event.getCurrentItem().getItemMeta().getDisplayName().equals("Başlangıç Ekipmanları")) {
-                humanEntity.getInventory().setItem(25, new ItemStack(Material.COOKED_MUTTON, 32));
-                humanEntity.getInventory().setItem(26, new ItemStack(Material.OAK_LOG, 32));
-                humanEntity.getInventory().setItem(27, new ItemStack(Material.TORCH, 32));
+            // first time writing that command
+            if(!this.cooldown.containsKey(humanEntity.getUniqueId())){
 
-                humanEntity.closeInventory();
-                humanEntity.sendMessage(ChatColor.AQUA + "Eşyalar temin edildi!");
-            } else {
-                humanEntity.sendMessage(ChatColor.RED + "Bu ekipmanı alacak yetkiye sahip değilsiniz.");
+                this.cooldown.put(humanEntity.getUniqueId(),System.currentTimeMillis());
+
+
+                if (event.getCurrentItem().getType() == Material.COAL) {
+
+                    //Starter items
+
+
+                    ItemStack helmet = new ItemStack(Material.LEATHER_HELMET,1);
+                    ItemMeta editHelmet = helmet.getItemMeta();
+                    editHelmet.setDisplayName(ChatColor.LIGHT_PURPLE + "Bere");
+                    editHelmet.addEnchant(Enchantment.DURABILITY,10,true);
+                    editHelmet.addEnchant(Enchantment.OXYGEN, 5,true);
+                    editHelmet.addEnchant(Enchantment.MENDING, 1,true);
+                    helmet.setItemMeta(editHelmet);
+
+                    humanEntity.getInventory().setItem(23,helmet);
+                    humanEntity.getInventory().setItem(24, new ItemStack(Material.COOKED_MUTTON, 32));
+                    humanEntity.getInventory().setItem(25, new ItemStack(Material.OAK_LOG, 32));
+                    humanEntity.getInventory().setItem(26, new ItemStack(Material.TORCH, 32));
+
+                    humanEntity.closeInventory();
+                    humanEntity.sendMessage(ChatColor.AQUA + "Eşyalar temin edildi!");
+                } else {
+                    humanEntity.sendMessage(ChatColor.RED + "Bu ekipmanı alacak yetkiye sahip değilsiniz.");
+                }
+
             }
+            else{
+                // Already typed that command
+                //difference in ms
+
+                long timeElapsed = System.currentTimeMillis() - cooldown.get(humanEntity.getUniqueId());
+                if(timeElapsed >= 10000){
+
+
+
+                    if (event.getCurrentItem().getType() == Material.COAL) {
+
+                        //Starter items
+
+
+                        ItemStack helmet = new ItemStack(Material.LEATHER_HELMET,1);
+                        ItemMeta editHelmet = helmet.getItemMeta();
+                        editHelmet.setDisplayName(ChatColor.LIGHT_PURPLE + "Bere");
+                        editHelmet.addEnchant(Enchantment.DURABILITY,10,true);
+                        editHelmet.addEnchant(Enchantment.OXYGEN, 5,true);
+                        editHelmet.addEnchant(Enchantment.MENDING, 1,true);
+                        helmet.setItemMeta(editHelmet);
+
+                        humanEntity.getInventory().setItem(23,helmet);
+                        humanEntity.getInventory().setItem(24, new ItemStack(Material.COOKED_MUTTON, 32));
+                        humanEntity.getInventory().setItem(25, new ItemStack(Material.OAK_LOG, 32));
+                        humanEntity.getInventory().setItem(26, new ItemStack(Material.TORCH, 32));
+
+                        humanEntity.closeInventory();
+                        humanEntity.sendMessage(ChatColor.AQUA + "Eşyalar temin edildi!");
+
+                        this.cooldown.put(humanEntity.getUniqueId(),System.currentTimeMillis());
+
+                    } else {
+                        humanEntity.sendMessage(ChatColor.RED + "Bu ekipmanı alacak yetkiye sahip değilsiniz.");
+                    }
+
+                }
+                else{
+                    humanEntity.sendMessage(ChatColor.AQUA + "Bekleme süresinde: " + (10000 - timeElapsed) + " Milisaniye");
+
+                }
+
+            }
+
+
 
         }
 

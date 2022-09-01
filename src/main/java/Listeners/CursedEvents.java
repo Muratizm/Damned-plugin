@@ -1,13 +1,9 @@
 package Listeners;
 
-import jdk.tools.jlink.plugin.Plugin;
-import me.muratcan.cursedplugin.CursedPlugin;
 import org.bukkit.*;
-import org.bukkit.block.Block;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityTameEvent;
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
@@ -31,6 +27,7 @@ public class CursedEvents implements Listener {
         if (entity.getType().equals(EntityType.SHEEP)) {
 
             entity.setFireTicks(10000);
+            Bukkit.getServer().getWorld("World").spawnParticle(Particle.DRAGON_BREATH,e.getEntity().getLocation(),210);
             entity.playEffect(EntityEffect.WOLF_SMOKE);
 
 
@@ -38,6 +35,7 @@ public class CursedEvents implements Listener {
 
 
     }
+
 
     //Cursed DEATH give an undead entities second chance
     @EventHandler
@@ -94,7 +92,7 @@ public class CursedEvents implements Listener {
 
 
         Location location = event.getEntity().getLocation();
-
+        Bukkit.getServer().getWorld("World").spawnParticle(Particle.CRIMSON_SPORE,location,120);
         Bukkit.getServer().getWorld("World").strikeLightning(location);
         // causes Lightning strike pet's owner
 

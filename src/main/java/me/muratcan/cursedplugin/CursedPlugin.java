@@ -24,15 +24,16 @@ public final class CursedPlugin extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(new MenuListener(),this);
 
         //Command Reg
-        getCommand("heal").setExecutor(new AdminCommands());
-        getCommand("god").setExecutor(new AdminCommands());
-        getCommand("invisible").setExecutor(new AdminCommands());
+        getCommand("iyileş").setExecutor(new AdminCommands());
+        getCommand("tanrı").setExecutor(new AdminCommands());
+        getCommand("görünmezlik").setExecutor(new AdminCommands());
         getCommand("beslen").setExecutor(new DonaterCommands());
         getCommand("evkaydet").setExecutor(new PlayerCommands(this));
         getCommand("ev").setExecutor(new PlayerCommands(this));
         getCommand("geri").setExecutor(new PlayerCommands(this));
         getCommand("esyaver").setExecutor(new PlayerCommands(this));
         getCommand("ekipmanlar").setExecutor(new PlayerCommands(this));
+        getCommand("tamiret").setExecutor(new DonaterCommands());
 
     }
 

@@ -17,7 +17,7 @@ public class AdminCommands implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
 
-        if (command.getName().equalsIgnoreCase("invisible")) {
+        if (command.getName().equalsIgnoreCase("görünmezlik")) {
 
 
             if (sender instanceof Player) {
@@ -34,6 +34,7 @@ public class AdminCommands implements CommandExecutor {
                     } else {
                         player.sendMessage(ChatColor.GREEN + "Görünmezlik açıldı");
 
+
                         player.setInvisible(true);
                     }
 
@@ -45,7 +46,7 @@ public class AdminCommands implements CommandExecutor {
 
 
             }
-        } else if (command.getName().equalsIgnoreCase("god")) {
+        } else if (command.getName().equalsIgnoreCase("tanrı")) {
 
             if (sender instanceof Player) {
 
@@ -69,7 +70,7 @@ public class AdminCommands implements CommandExecutor {
 
             }
 
-        } else if (command.getName().equalsIgnoreCase("heal")) {
+        } else if (command.getName().equalsIgnoreCase("iyileş")) {
 
             if (sender instanceof Player) {
 

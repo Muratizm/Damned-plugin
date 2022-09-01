@@ -9,6 +9,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
@@ -91,7 +93,7 @@ public class PlayerCommands implements CommandExecutor {
 
                 Player player = (Player) commandSender;
 
-                String s1 = strings[1];
+                String s1 = strings[0];
                 Player player1 = Bukkit.getServer().getPlayerExact(s1);
                 if (player1 != null) {
                     ItemStack item = player.getInventory().getItemInMainHand();
@@ -110,18 +112,22 @@ public class PlayerCommands implements CommandExecutor {
 
             if (commandSender instanceof Player) {
 
+
                 Player player = (Player) commandSender;
 
-                //Starter
-                ArrayList<String>lore1 = new ArrayList<>();
-                lore1.add("Bir noktadan başlamak gerek");
-                Inventory inventory = Bukkit.createInventory(player, 8, ChatColor.DARK_PURPLE + "Ekipmanlar");
+                //Starter pack
+                ArrayList<String>lore = new ArrayList<>();
+                lore.add("Bir noktadan başlamak gerek");
+                Inventory inventory = Bukkit.createInventory(player, 9, ChatColor.DARK_PURPLE + "Ekipmanlar");
                 ItemStack itemStack1 = new ItemStack(Material.COAL);
                 ItemMeta itemMeta = itemStack1.getItemMeta();
-                itemMeta.addEnchant(Enchantment.BINDING_CURSE, 666, true);
-                itemMeta.setLore(lore1);
+                itemMeta.addEnchant(Enchantment.BINDING_CURSE, 1,false);
                 itemMeta.setDisplayName(ChatColor.AQUA + "Başlangıç Ekipmanları");
+                itemMeta.setLore(lore);
+                itemStack1.setItemMeta(itemMeta);
                 inventory.setItem(0, itemStack1);
+
+
 
 
 
