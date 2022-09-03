@@ -11,6 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
@@ -42,7 +43,7 @@ public class PlayerCommands implements CommandExecutor {
 
                 plugin.getConfig().set("evkaydet", player.getPlayer().getLocation());
                 plugin.saveConfig();
-                player.sendMessage("Ev konumu kaydedildi");
+                player.sendMessage(ChatColor.GREEN + "Ev konumu kaydedildi");
 
 
             }
@@ -96,46 +97,83 @@ public class PlayerCommands implements CommandExecutor {
                 String s1 = strings[0];
                 Player player1 = Bukkit.getServer().getPlayerExact(s1);
                 if (player1 != null) {
+
                     ItemStack item = player.getInventory().getItemInMainHand();
                     player.getInventory().remove(player.getInventory().getItemInMainHand());
-                    player1.getInventory().setItem(1, item);
-                    player.sendMessage(ChatColor.GREEN + "Eşya başarıyla gönderildi");
-                } else {
-                    player.sendMessage(ChatColor.YELLOW + "Gönderilmek istenilen oyuncu bulunamadı");
+                    player1.getInventory().addItem(item);
+
+
                 }
-
-
             }
 
+            } else if (command.getName().equalsIgnoreCase("ekipmanlar")) {
 
-        } else if (command.getName().equalsIgnoreCase("ekipmanlar")) {
+                if (commandSender instanceof Player) {
 
-            if (commandSender instanceof Player) {
 
+                    Player player = (Player) commandSender;
+
+                    //Starter pack
+                    ArrayList<String> lore = new ArrayList<>();
+                    lore.add("Bir noktadan başlamak gerek");
+                    Inventory inventory = Bukkit.createInventory(player, 9, ChatColor.DARK_PURPLE + "Ekipmanlar");
+                    ItemStack itemStack1 = new ItemStack(Material.COAL);
+                    ItemStack ironKit = new ItemStack(Material.IRON_INGOT);
+                    ItemStack goldenKit = new ItemStack(Material.GOLD_INGOT);
+                    ItemStack diamondKit = new ItemStack(Material.DIAMOND);
+                    ItemStack emeraldKit = new ItemStack(Material.EMERALD);
+
+                    ItemMeta itemMeta = itemStack1.getItemMeta();
+                    itemMeta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
+                    itemMeta.setDisplayName(ChatColor.AQUA + "Başlangıç Ekipmanları");
+                    itemMeta.setLore(lore);
+                    itemStack1.setItemMeta(itemMeta);
+                    inventory.setItem(0, itemStack1);
+                    inventory.setItem(1, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
+                    inventory.setItem(2,ironKit);
+                    inventory.setItem(3, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
+                    inventory.setItem(4, goldenKit);
+                    inventory.setItem(5, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
+                    inventory.setItem(6, diamondKit);
+                    inventory.setItem(7, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
+                    inventory.setItem(8, emeraldKit);
+
+
+
+
+
+                    player.openInventory(inventory);
+                }
+            }
+        else if(command.getName().equalsIgnoreCase("yardım")){
+
+            if(commandSender instanceof Player){
 
                 Player player = (Player) commandSender;
 
-                //Starter pack
-                ArrayList<String>lore = new ArrayList<>();
-                lore.add("Bir noktadan başlamak gerek");
-                Inventory inventory = Bukkit.createInventory(player, 9, ChatColor.DARK_PURPLE + "Ekipmanlar");
-                ItemStack itemStack1 = new ItemStack(Material.COAL);
-                ItemMeta itemMeta = itemStack1.getItemMeta();
-                itemMeta.addEnchant(Enchantment.BINDING_CURSE, 1,false);
-                itemMeta.setDisplayName(ChatColor.AQUA + "Başlangıç Ekipmanları");
-                itemMeta.setLore(lore);
-                itemStack1.setItemMeta(itemMeta);
-                inventory.setItem(0, itemStack1);
+                Inventory inventory = Bukkit.createInventory(player,9 , ChatColor.LIGHT_PURPLE + "Yardım Menüsü");
+
+                ItemStack tnt = new ItemStack(Material.TNT);
 
 
-
-
+                inventory.setItem(0, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
+                inventory.setItem(1, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
+                inventory.setItem(2,new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
+                inventory.setItem(3, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
+                inventory.setItem(4, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
+                inventory.setItem(5, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
+                inventory.setItem(6, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
+                inventory.setItem(7, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
+                inventory.setItem(8, tnt);
 
                 player.openInventory(inventory);
+
             }
+
+
         }
 
 
-        return true;
+            return true;
+        }
     }
-}

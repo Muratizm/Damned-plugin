@@ -72,7 +72,7 @@ public class MenuListener implements Listener {
                 //difference in ms
 
                 long timeElapsed = System.currentTimeMillis() - cooldown.get(humanEntity.getUniqueId());
-                if(timeElapsed >= 10000){
+                if(timeElapsed >= 1000){
 
 
 
@@ -102,10 +102,9 @@ public class MenuListener implements Listener {
                     } else {
                         humanEntity.sendMessage(ChatColor.RED + "Bu ekipmanı alacak yetkiye sahip değilsiniz.");
                     }
-
                 }
-                else{
-                    humanEntity.sendMessage(ChatColor.AQUA + "Bekleme süresinde: " + (10000 - timeElapsed) + " Milisaniye");
+                else{                                                            // a whole day = 86.400.000 in minecraft
+                    humanEntity.sendMessage(ChatColor.AQUA + "Bekleme süresinde: " + ((10000 -  timeElapsed) / 1000 + " saat kaldı" ));
 
                 }
 

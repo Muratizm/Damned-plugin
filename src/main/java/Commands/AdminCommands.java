@@ -1,14 +1,11 @@
 package Commands;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-
-import java.awt.*;
 
 public class AdminCommands implements CommandExecutor {
 
@@ -93,14 +90,56 @@ public class AdminCommands implements CommandExecutor {
             }
 
 
-        }
-        else if(command.getName().equalsIgnoreCase("yaratesya")){
+        } else if (command.getName().equalsIgnoreCase("yaratesya")) {
 
             Player player = (Player) sender;
 
-            if(player.isOp()){
+            if (player.isOp()) {
 
             }
+        } else if (command.getName().equalsIgnoreCase("uçabilir")) {
+
+            if (sender instanceof Player) {
+
+
+                Player player = (Player) sender;
+
+
+                if (player.isOp()) {
+                    if (args.length == 1) {
+
+                        String oyuncu = args[0];
+                        Player player1 = Bukkit.getServer().getPlayerExact(oyuncu);
+                        player.sendMessage(player1.getDisplayName());
+
+                        if (player1 != null) {
+
+                            if (DonaterCommands.flyingPlayers.contains(player1)) {
+
+                                DonaterCommands.flyingPlayers.remove(player1);
+                                player1.sendMessage(ChatColor.RED + "Uçma yetkin " + player.getDisplayName() + " tarafından elinden alındı.");
+                                player1.setAllowFlight(false);
+
+                            } else {
+                                DonaterCommands.flyingPlayers.add(player1);
+                                player1.sendMessage(ChatColor.AQUA + "Uçma yetkin " + player.getDisplayName() + " tarafından verildi.");
+                                player1.setAllowFlight(true);
+
+                            }
+
+                        } else {
+                            player.sendMessage(ChatColor.RED + "Oyuncu bulunamadı");
+                        }
+
+
+                    }
+
+                } else {
+                    player.sendMessage(ChatColor.RED + "Oyuncunun bu komutu kullanmaya yetkisi yok");
+                }
+
+            }
+
         }
 
 

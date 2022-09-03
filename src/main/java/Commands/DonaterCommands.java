@@ -10,7 +10,12 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
+
 public class DonaterCommands implements CommandExecutor {
+
+   public static ArrayList<Player> flyingPlayers = new ArrayList();
+
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
 
@@ -21,7 +26,7 @@ public class DonaterCommands implements CommandExecutor {
 
                 Player player = (Player) commandSender;
                 player.setFoodLevel(20);
-                player.sendMessage(ChatColor.GREEN + "Açlı barınız tazelendi");
+                player.sendMessage(ChatColor.GREEN + "Açlık barınız tazelendi");
 
 
             }
@@ -46,6 +51,35 @@ public class DonaterCommands implements CommandExecutor {
                       player.sendMessage(ChatColor.RED + "Elinizde eşya olmalı");
                   }
 
+
+            }
+
+        }
+        else if(command.getName().equalsIgnoreCase("uçma")){
+
+            if(commandSender instanceof Player){
+
+                Player player = (Player) commandSender;
+
+                if(player.hasPermission("Destekçi")){
+
+                    if(flyingPlayers.contains(player)){
+
+                        player.setAllowFlight(false);
+                        player.sendMessage(ChatColor.RED + "Artık uçamazsın.");
+                        flyingPlayers.remove(player);
+                    }
+                    else {
+
+                        player.setAllowFlight(true);
+                        player.sendMessage(ChatColor.AQUA + "Artık uçabilirsin.");
+                        flyingPlayers.add(player);
+                    }
+
+                }
+                else{
+                    player.sendMessage(ChatColor.RED + "Bu komutu kullanacak yetkiye sahip değilsin.");
+                }
 
             }
 
