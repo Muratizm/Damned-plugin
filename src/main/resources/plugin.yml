@@ -44,3 +44,15 @@ commands:
   tamiret:
     description: elinizde tuttuğunuz ekipmanı tamir eder.
     usage: /tamiret
+
+  uçma:
+    description: oyuncunun uçmasını sağlar.
+    usage: /uçma
+
+  uçabilir:
+    description: Yetkili kişi tarafından bir oyuncuya uçma yetkisi verir
+    usage: /uçabilir <Oyuncu>
+
+  yardım:
+    description: Yardım menüsünü açar
+    usage: /yardım
