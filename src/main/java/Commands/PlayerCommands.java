@@ -153,8 +153,15 @@ public class PlayerCommands implements CommandExecutor {
 
                 Inventory inventory = Bukkit.createInventory(player,9 , ChatColor.LIGHT_PURPLE + "Yardım Menüsü");
 
+                 // Suicide TNT
                 ItemStack tnt = new ItemStack(Material.TNT);
-
+                ItemMeta tntMeta = tnt.getItemMeta();
+                tntMeta.setDisplayName(ChatColor.DARK_AQUA + "İntihar et");
+                tntMeta.addEnchant(Enchantment.BINDING_CURSE,1,true);
+                ArrayList<String> tntLore = new ArrayList<>();
+                tntLore.add("Kendi canına kıymak için TNT'ye tıkla!");
+                tntMeta.setLore(tntLore);
+                tnt.setItemMeta(tntMeta);
 
                 inventory.setItem(0, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
                 inventory.setItem(1, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
