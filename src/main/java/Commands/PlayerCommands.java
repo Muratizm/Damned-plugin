@@ -125,7 +125,7 @@ public class PlayerCommands implements CommandExecutor {
 
                     ItemMeta itemMeta = itemStack1.getItemMeta();
                     itemMeta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
-                    itemMeta.setDisplayName(ChatColor.GRAY + "Başlangıç Ekipmanları");
+                    itemMeta.setDisplayName(ChatColor.AQUA + "" + ChatColor.BOLD + "Başlangıç Ekipmanları");
                     itemMeta.setLore(lore);
                     itemStack1.setItemMeta(itemMeta);
 
@@ -135,10 +135,10 @@ public class PlayerCommands implements CommandExecutor {
                     ItemMeta diamondMeta = diamondKit.getItemMeta();
                     ItemMeta emeraldMeta = emeraldKit.getItemMeta();
 
-                    ironMeta.setDisplayName(ChatColor.BLACK + "" + ChatColor.BOLD + "Gezgin Ekipmanları");
-                    goldenMeta.setDisplayName(ChatColor.AQUA + "Maceracı Ekipmanlar");
-                    diamondMeta.setDisplayName(ChatColor.DARK_GREEN + "Destansı Ekipmanlar");
-                    emeraldMeta.setDisplayName(ChatColor.DARK_RED + "Efsanevi Ekipmanlar");
+                    ironMeta.setDisplayName(ChatColor.GRAY + "" + ChatColor.BOLD + "Gezgin Ekipmanları");
+                    goldenMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Maceracı Ekipmanlar");
+                    diamondMeta.setDisplayName(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "Destansı Ekipmanlar");
+                    emeraldMeta.setDisplayName(ChatColor.DARK_RED + "" + ChatColor.BOLD + "Efsanevi Ekipmanlar");
 
                     ironMeta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
                     goldenMeta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
@@ -160,7 +160,7 @@ public class PlayerCommands implements CommandExecutor {
                     diamondMeta.setLore(diamondLore);
                     emeraldMeta.setLore(emeraldLore);
 
-                    ironKit.setItemMeta(itemMeta);
+                    ironKit.setItemMeta(ironMeta);
                     goldenKit.setItemMeta(goldenMeta);
                     diamondKit.setItemMeta(diamondMeta);
                     emeraldKit.setItemMeta(emeraldMeta);
@@ -193,12 +193,21 @@ public class PlayerCommands implements CommandExecutor {
                  // Suicide TNT
                 ItemStack tnt = new ItemStack(Material.TNT);
                 ItemMeta tntMeta = tnt.getItemMeta();
-                tntMeta.setDisplayName(ChatColor.DARK_AQUA + "İntihar et");
+                tntMeta.setDisplayName(ChatColor.DARK_AQUA + "" + ChatColor.BOLD + "İntihar et");
                 tntMeta.addEnchant(Enchantment.BINDING_CURSE,1,true);
                 ArrayList<String> tntLore = new ArrayList<>();
                 tntLore.add("Kendi canına kıymak için TNT'ye tıkla!");
                 tntMeta.setLore(tntLore);
                 tnt.setItemMeta(tntMeta);
+
+                //Close GUI window
+
+                ItemStack close = new ItemStack(Material.BARRIER);
+                ItemMeta closeMeta = close.getItemMeta();
+                closeMeta.setDisplayName(ChatColor.RED + "" + ChatColor.BOLD + "Kapat");
+                closeMeta.addEnchant(Enchantment.BINDING_CURSE,1,true);
+                close.setItemMeta(closeMeta);
+
 
                 inventory.setItem(0, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
                 inventory.setItem(1, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
@@ -206,9 +215,9 @@ public class PlayerCommands implements CommandExecutor {
                 inventory.setItem(3, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
                 inventory.setItem(4, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
                 inventory.setItem(5, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
-                inventory.setItem(6, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
+                inventory.setItem(6, tnt);
                 inventory.setItem(7, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
-                inventory.setItem(8, tnt);
+                inventory.setItem(8, close);
 
                 player.openInventory(inventory);
 

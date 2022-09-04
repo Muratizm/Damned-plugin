@@ -161,6 +161,11 @@ public class MenuListener implements Listener {
                 livingEntity.sendMessage(ChatColor.RED + "Kendinizi öldürdünüz.");
 
             }
+            else if(event.getCurrentItem().getType() == Material.BARRIER){
+
+                event.getWhoClicked().closeInventory();
+
+            }
 
         }
 
