@@ -125,9 +125,46 @@ public class PlayerCommands implements CommandExecutor {
 
                     ItemMeta itemMeta = itemStack1.getItemMeta();
                     itemMeta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
-                    itemMeta.setDisplayName(ChatColor.AQUA + "Başlangıç Ekipmanları");
+                    itemMeta.setDisplayName(ChatColor.GRAY + "Başlangıç Ekipmanları");
                     itemMeta.setLore(lore);
                     itemStack1.setItemMeta(itemMeta);
+
+
+                    ItemMeta ironMeta = ironKit.getItemMeta();
+                    ItemMeta goldenMeta = goldenKit.getItemMeta();
+                    ItemMeta diamondMeta = diamondKit.getItemMeta();
+                    ItemMeta emeraldMeta = emeraldKit.getItemMeta();
+
+                    ironMeta.setDisplayName(ChatColor.BLACK + "" + ChatColor.BOLD + "Gezgin Ekipmanları");
+                    goldenMeta.setDisplayName(ChatColor.AQUA + "Maceracı Ekipmanlar");
+                    diamondMeta.setDisplayName(ChatColor.DARK_GREEN + "Destansı Ekipmanlar");
+                    emeraldMeta.setDisplayName(ChatColor.DARK_RED + "Efsanevi Ekipmanlar");
+
+                    ironMeta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
+                    goldenMeta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
+                    diamondMeta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
+                    emeraldMeta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
+
+                    ArrayList<String> ironLore = new ArrayList<>();
+                    ArrayList<String> goldLore = new ArrayList<>();
+                    ArrayList<String> diamondLore = new ArrayList<>();
+                    ArrayList<String> emeraldLore = new ArrayList<>();
+
+                    ironLore.add("Uzun yolculuklara çıkarken yanına almak isteyeceğin eşyalar verir");
+                    goldLore.add("Tehlikeli maceralara için gerekenler!");
+                    diamondLore.add("Nam salmış kişilerce tercih edilir.");
+                    emeraldLore.add("Artık isimleri mitlerde geçenler içindir");
+
+                    ironMeta.setLore(ironLore);
+                    goldenMeta.setLore(goldLore);
+                    diamondMeta.setLore(diamondLore);
+                    emeraldMeta.setLore(emeraldLore);
+
+                    ironKit.setItemMeta(itemMeta);
+                    goldenKit.setItemMeta(goldenMeta);
+                    diamondKit.setItemMeta(diamondMeta);
+                    emeraldKit.setItemMeta(emeraldMeta);
+
                     inventory.setItem(0, itemStack1);
                     inventory.setItem(1, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
                     inventory.setItem(2,ironKit);

@@ -63,7 +63,26 @@ public class MenuListener implements Listener {
 
                     humanEntity.closeInventory();
                     humanEntity.sendMessage(ChatColor.AQUA + "Eşyalar temin edildi!");
-                } else {
+                }else if (event.getCurrentItem().getType() == Material.IRON_INGOT) {
+
+
+                    humanEntity.sendMessage(ChatColor.AQUA + "Eşyalar temin edildi!");
+
+                } else if (event.getCurrentItem().getType() == Material.GOLD_INGOT) {
+
+                    humanEntity.sendMessage(ChatColor.AQUA + "Eşyalar temin edildi!");
+
+                } else if (event.getCurrentItem().getType() == Material.DIAMOND) {
+
+                    humanEntity.sendMessage(ChatColor.AQUA + "Eşyalar temin edildi!");
+
+                } else if (event.getCurrentItem().getType() == Material.EMERALD) {
+
+                    humanEntity.sendMessage(ChatColor.AQUA + "Eşyalar temin edildi!");
+
+                }
+
+                else {
                     humanEntity.sendMessage(ChatColor.RED + "Bu ekipmanı alacak yetkiye sahip değilsiniz.");
                 }
 
