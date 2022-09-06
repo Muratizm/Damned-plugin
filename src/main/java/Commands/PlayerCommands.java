@@ -88,7 +88,6 @@ public class PlayerCommands implements CommandExecutor {
 
 
             }
-            //Not work
         } else if (command.getName().equalsIgnoreCase("esyaver")) {
             if (commandSender instanceof Player) {
 
@@ -98,103 +97,135 @@ public class PlayerCommands implements CommandExecutor {
                 Player player1 = Bukkit.getServer().getPlayerExact(s1);
                 if (player1 != null) {
 
-                    ItemStack item = player.getInventory().getItemInMainHand();
-                    player.getInventory().remove(player.getInventory().getItemInMainHand());
-                    player1.getInventory().addItem(item);
+                    ItemStack air = new ItemStack(Material.AIR);
+                    ItemStack hand = new ItemStack(player.getInventory().getItemInMainHand());
+
+                    System.out.println(player.getInventory().getItemInMainHand());
+                 if(!hand.getData().equals(air.getData())){
+
+
+                     int x = 0;
+                     ItemStack[] items = player1.getInventory().getStorageContents();
+
+                     for (ItemStack item : items) {
+
+
+                         // aynı tipte iki eşyanın ilk atım stack'ı 0 (null)dan saydığı için yanyana aynı eşyadan 1 tane koyduğunda gönderdiğin an hepsini siler düzeltimesi gerek
+                         // çözüm-1: belki eşyaya lore veya farklı bir isim atayarak engellenebilir enchantla bile engelleniyor
+                         if (item == null) {
+                             player.sendMessage();
+
+                             ItemStack esya = player.getInventory().getItemInMainHand();
+
+                             player.getInventory().remove(player.getInventory().getItemInMainHand());
+                             player1.getInventory().setItem(x,esya);
+                             player.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "Eşya başarıyla gönderildi.");
+                             player1.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + player.getDisplayName() + " Tarafından size " + esya.getType() + " Gönderildi" );
+                             break;
+
+
+                         }
+                         else if(x == 35){
+                             break;
+                         }
+                         x++;
+
+                     }
+                     player.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Eğer eşyanız gitmediyse gönderdiğiniz kişide boş yer yoktur.");
+                 }else{
+                     player.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Elinizde Bir eşya tutmanız gerekiyor.");
+                 }
+
 
 
                 }
             }
 
-            } else if (command.getName().equalsIgnoreCase("ekipmanlar")) {
+        } else if (command.getName().equalsIgnoreCase("ekipmanlar")) {
 
-                if (commandSender instanceof Player) {
+            if (commandSender instanceof Player) {
 
-
-                    Player player = (Player) commandSender;
-
-                    //Starter pack
-                    ArrayList<String> lore = new ArrayList<>();
-                    lore.add("Bir noktadan başlamak gerek");
-                    Inventory inventory = Bukkit.createInventory(player, 9, ChatColor.DARK_PURPLE + "Ekipmanlar");
-                    ItemStack itemStack1 = new ItemStack(Material.COAL);
-                    ItemStack ironKit = new ItemStack(Material.IRON_INGOT);
-                    ItemStack goldenKit = new ItemStack(Material.GOLD_INGOT);
-                    ItemStack diamondKit = new ItemStack(Material.DIAMOND);
-                    ItemStack emeraldKit = new ItemStack(Material.EMERALD);
-
-                    ItemMeta itemMeta = itemStack1.getItemMeta();
-                    itemMeta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
-                    itemMeta.setDisplayName(ChatColor.AQUA + "" + ChatColor.BOLD + "Başlangıç Ekipmanları");
-                    itemMeta.setLore(lore);
-                    itemStack1.setItemMeta(itemMeta);
-
-
-                    ItemMeta ironMeta = ironKit.getItemMeta();
-                    ItemMeta goldenMeta = goldenKit.getItemMeta();
-                    ItemMeta diamondMeta = diamondKit.getItemMeta();
-                    ItemMeta emeraldMeta = emeraldKit.getItemMeta();
-
-                    ironMeta.setDisplayName(ChatColor.GRAY + "" + ChatColor.BOLD + "Gezgin Ekipmanları");
-                    goldenMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Maceracı Ekipmanlar");
-                    diamondMeta.setDisplayName(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "Destansı Ekipmanlar");
-                    emeraldMeta.setDisplayName(ChatColor.DARK_RED + "" + ChatColor.BOLD + "Efsanevi Ekipmanlar");
-
-                    ironMeta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
-                    goldenMeta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
-                    diamondMeta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
-                    emeraldMeta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
-
-                    ArrayList<String> ironLore = new ArrayList<>();
-                    ArrayList<String> goldLore = new ArrayList<>();
-                    ArrayList<String> diamondLore = new ArrayList<>();
-                    ArrayList<String> emeraldLore = new ArrayList<>();
-
-                    ironLore.add("Uzun yolculuklara çıkarken yanına almak isteyeceğin eşyalar verir");
-                    goldLore.add("Tehlikeli maceralara için gerekenler!");
-                    diamondLore.add("Nam salmış kişilerce tercih edilir.");
-                    emeraldLore.add("Artık isimleri mitlerde geçenler içindir");
-
-                    ironMeta.setLore(ironLore);
-                    goldenMeta.setLore(goldLore);
-                    diamondMeta.setLore(diamondLore);
-                    emeraldMeta.setLore(emeraldLore);
-
-                    ironKit.setItemMeta(ironMeta);
-                    goldenKit.setItemMeta(goldenMeta);
-                    diamondKit.setItemMeta(diamondMeta);
-                    emeraldKit.setItemMeta(emeraldMeta);
-
-                    inventory.setItem(0, itemStack1);
-                    inventory.setItem(1, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
-                    inventory.setItem(2,ironKit);
-                    inventory.setItem(3, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
-                    inventory.setItem(4, goldenKit);
-                    inventory.setItem(5, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
-                    inventory.setItem(6, diamondKit);
-                    inventory.setItem(7, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
-                    inventory.setItem(8, emeraldKit);
-
-
-
-
-
-                    player.openInventory(inventory);
-                }
-            }
-        else if(command.getName().equalsIgnoreCase("yardım")){
-
-            if(commandSender instanceof Player){
 
                 Player player = (Player) commandSender;
 
-                Inventory inventory = Bukkit.createInventory(player,9 , ChatColor.LIGHT_PURPLE + "Yardım Menüsü");
+                //Starter pack
+                ArrayList<String> lore = new ArrayList<>();
+                lore.add("Bir noktadan başlamak gerek");
+                Inventory inventory = Bukkit.createInventory(player, 9, ChatColor.DARK_PURPLE + "Ekipmanlar");
+                ItemStack itemStack1 = new ItemStack(Material.COAL);
+                ItemStack ironKit = new ItemStack(Material.IRON_INGOT);
+                ItemStack goldenKit = new ItemStack(Material.GOLD_INGOT);
+                ItemStack diamondKit = new ItemStack(Material.DIAMOND);
+                ItemStack emeraldKit = new ItemStack(Material.EMERALD);
 
-                 // Suicide TNT
+                ItemMeta itemMeta = itemStack1.getItemMeta();
+                itemMeta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
+                itemMeta.setDisplayName(ChatColor.AQUA + "" + ChatColor.BOLD + "Başlangıç Ekipmanları");
+                itemMeta.setLore(lore);
+                itemStack1.setItemMeta(itemMeta);
+
+
+                ItemMeta ironMeta = ironKit.getItemMeta();
+                ItemMeta goldenMeta = goldenKit.getItemMeta();
+                ItemMeta diamondMeta = diamondKit.getItemMeta();
+                ItemMeta emeraldMeta = emeraldKit.getItemMeta();
+
+                ironMeta.setDisplayName(ChatColor.GRAY + "" + ChatColor.BOLD + "Gezgin Ekipmanları");
+                goldenMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Maceracı Ekipmanlar");
+                diamondMeta.setDisplayName(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "Destansı Ekipmanlar");
+                emeraldMeta.setDisplayName(ChatColor.DARK_RED + "" + ChatColor.BOLD + "Efsanevi Ekipmanlar");
+
+                ironMeta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
+                goldenMeta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
+                diamondMeta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
+                emeraldMeta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
+
+                ArrayList<String> ironLore = new ArrayList<>();
+                ArrayList<String> goldLore = new ArrayList<>();
+                ArrayList<String> diamondLore = new ArrayList<>();
+                ArrayList<String> emeraldLore = new ArrayList<>();
+
+                ironLore.add("Uzun yolculuklara çıkarken yanına almak isteyeceğin eşyalar verir");
+                goldLore.add("Tehlikeli maceralara için gerekenler!");
+                diamondLore.add("Nam salmış kişilerce tercih edilir.");
+                emeraldLore.add("Artık isimleri mitlerde geçenler içindir");
+
+                ironMeta.setLore(ironLore);
+                goldenMeta.setLore(goldLore);
+                diamondMeta.setLore(diamondLore);
+                emeraldMeta.setLore(emeraldLore);
+
+                ironKit.setItemMeta(ironMeta);
+                goldenKit.setItemMeta(goldenMeta);
+                diamondKit.setItemMeta(diamondMeta);
+                emeraldKit.setItemMeta(emeraldMeta);
+
+                inventory.setItem(0, itemStack1);
+                inventory.setItem(1, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
+                inventory.setItem(2, ironKit);
+                inventory.setItem(3, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
+                inventory.setItem(4, goldenKit);
+                inventory.setItem(5, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
+                inventory.setItem(6, diamondKit);
+                inventory.setItem(7, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
+                inventory.setItem(8, emeraldKit);
+
+
+                player.openInventory(inventory);
+            }
+        } else if (command.getName().equalsIgnoreCase("yardım")) {
+
+            if (commandSender instanceof Player) {
+
+                Player player = (Player) commandSender;
+
+                Inventory inventory = Bukkit.createInventory(player, 9, ChatColor.LIGHT_PURPLE + "Yardım Menüsü");
+
+                // Suicide TNT
                 ItemStack tnt = new ItemStack(Material.TNT);
                 ItemMeta tntMeta = tnt.getItemMeta();
                 tntMeta.setDisplayName(ChatColor.DARK_AQUA + "" + ChatColor.BOLD + "İntihar et");
-                tntMeta.addEnchant(Enchantment.BINDING_CURSE,1,true);
+                tntMeta.addEnchant(Enchantment.BINDING_CURSE, 1, true);
                 ArrayList<String> tntLore = new ArrayList<>();
                 tntLore.add("Kendi canına kıymak için TNT'ye tıkla!");
                 tntMeta.setLore(tntLore);
@@ -205,13 +236,13 @@ public class PlayerCommands implements CommandExecutor {
                 ItemStack close = new ItemStack(Material.BARRIER);
                 ItemMeta closeMeta = close.getItemMeta();
                 closeMeta.setDisplayName(ChatColor.RED + "" + ChatColor.BOLD + "Kapat");
-                closeMeta.addEnchant(Enchantment.BINDING_CURSE,1,true);
+                closeMeta.addEnchant(Enchantment.BINDING_CURSE, 1, true);
                 close.setItemMeta(closeMeta);
 
 
                 inventory.setItem(0, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
                 inventory.setItem(1, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
-                inventory.setItem(2,new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
+                inventory.setItem(2, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
                 inventory.setItem(3, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
                 inventory.setItem(4, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
                 inventory.setItem(5, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
@@ -227,6 +258,8 @@ public class PlayerCommands implements CommandExecutor {
         }
 
 
-            return true;
-        }
+        return true;
     }
+
+
+}
