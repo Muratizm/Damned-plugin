@@ -286,6 +286,8 @@ public class CursedEvents implements Listener {
                         break;
                     case ENDERMAN:
 
+                         // Bir tür bug var kontrol et
+
                         if (deathEvent.getEntity().getCustomName() == null) {
 
 
@@ -294,14 +296,17 @@ public class CursedEvents implements Listener {
                             entity.playEffect(EntityEffect.TOTEM_RESURRECT);
 
 
-                            deathEvent.getEntity().getKiller().addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS, 2000, 3));
-                            deathEvent.getEntity().getKiller().addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 400, 2));
-
                             entity.setTarget(deathEvent.getEntity().getKiller());
                             entity.setGlowing(true);
                             entity.setCustomName(ChatColor.RED + "" + ChatColor.BOLD + "Karanlık getiren");
                             entity.setCustomNameVisible(true);
                             entity.setRemoveWhenFarAway(true);
+
+                            deathEvent.getEntity().getKiller().addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS, 2000, 3));
+                            deathEvent.getEntity().getKiller().addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 400, 2));
+                            deathEvent.getEntity().getKiller().dropItem(true);
+                            deathEvent.getEntity().getKiller().getInventory().remove(deathEvent.getEntity().getKiller().getInventory().getItemInMainHand());
+
 
 
                         }
@@ -404,6 +409,13 @@ public class CursedEvents implements Listener {
 
 
             }
+            else if(deathEvent.getEntity().getCustomName().equals(ChatColor.GOLD + "" + ChatColor.BOLD + "Sürü")){
+
+            }
+            else if(deathEvent.getEntity().getCustomName().equals(ChatColor.RED + "" + ChatColor.BOLD + "Karanlık getiren")){
+
+            }
+
 
         }
 
