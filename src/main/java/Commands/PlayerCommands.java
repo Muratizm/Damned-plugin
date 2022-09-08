@@ -113,7 +113,6 @@ public class PlayerCommands implements CommandExecutor {
                          // aynı tipte iki eşyanın ilk atım stack'ı 0 (null)dan saydığı için yanyana aynı eşyadan 1 tane koyduğunda gönderdiğin an hepsini siler düzeltimesi gerek
                          // çözüm-1: belki eşyaya lore veya farklı bir isim atayarak engellenebilir enchantla bile engelleniyor
                          if (item == null) {
-                             player.sendMessage();
 
                              ItemStack esya = player.getInventory().getItemInMainHand();
 
