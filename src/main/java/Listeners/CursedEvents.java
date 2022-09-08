@@ -253,6 +253,7 @@ public class CursedEvents implements Listener {
                             spl2.setRemoveWhenFarAway(true);
                             spl3.setRemoveWhenFarAway(true);
 
+
                             sp1.setTarget(deathEvent.getEntity().getKiller());
                             sp2.setTarget(deathEvent.getEntity().getKiller());
                             sp3.setTarget(deathEvent.getEntity().getKiller());
@@ -302,13 +303,12 @@ public class CursedEvents implements Listener {
                             entity.setCustomNameVisible(true);
                             entity.setRemoveWhenFarAway(true);
 
-                            deathEvent.getEntity().getKiller().addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS, 2000, 3));
-                            deathEvent.getEntity().getKiller().addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 400, 2));
-                            deathEvent.getEntity().getKiller().dropItem(true);
-                            deathEvent.getEntity().getKiller().getInventory().remove(deathEvent.getEntity().getKiller().getInventory().getItemInMainHand());
+                            deathEvent.getEntity().getKiller().addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS, 1000, 3));
+                            deathEvent.getEntity().getKiller().addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 300, 2));
 
-
-
+                            entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(50D);
+                            entity.getAttribute(Attribute.GENERIC_ATTACK_KNOCKBACK).setBaseValue(25D);
+                            entity.setHealth(50D);
                         }
 
 

@@ -2,6 +2,7 @@ package Commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -9,7 +10,7 @@ import org.bukkit.entity.Player;
 
 public class AdminCommands implements CommandExecutor {
 
-
+     public static Location spawnLoc;
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
@@ -96,6 +97,8 @@ public class AdminCommands implements CommandExecutor {
 
             if (player.isOp()) {
 
+
+
             }
         } else if (command.getName().equalsIgnoreCase("uçabilir")) {
 
@@ -136,6 +139,21 @@ public class AdminCommands implements CommandExecutor {
 
                 } else {
                     player.sendMessage(ChatColor.RED + "Oyuncunun bu komutu kullanmaya yetkisi yok");
+                }
+
+            }
+
+        }
+        else if(command.getName().equalsIgnoreCase("spawnkaydet")){
+
+
+            if(sender instanceof Player){
+
+                Player player = (Player) sender;
+
+                if(player.isOp()){
+
+
                 }
 
             }
