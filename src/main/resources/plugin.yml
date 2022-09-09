@@ -56,3 +56,6 @@ commands:
   yardım:
     description: Yardım menüsünü açar
     usage: /yardım
+  spawnkaydet:
+    description: global spawn noktasını belirler
+    usage: /spawnkaydet

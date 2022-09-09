@@ -6,10 +6,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.entity.EntityTameEvent;
-import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
+import org.bukkit.event.entity.*;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -17,6 +14,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
+import java.awt.Color;
 import java.util.ArrayList;
 
 
@@ -281,6 +279,7 @@ public class CursedEvents implements Listener {
                             sp3.setCustomNameVisible(true);
 
 
+
                         }
 
 
@@ -404,16 +403,43 @@ public class CursedEvents implements Listener {
                 MeatMeta.setLore(meat_lore);
                 CursedShard.setItemMeta(MeatMeta);
 
-                deathEvent.getDrops().add(1,CursedShard);
+                deathEvent.getDrops().add(CursedShard);
 
 
 
             }
             else if(deathEvent.getEntity().getCustomName().equals(ChatColor.GOLD + "" + ChatColor.BOLD + "Sürü")){
 
+                deathEvent.getDrops().clear();
+                deathEvent.setDroppedExp(25);
+
+                ItemStack eye = new ItemStack(Material.FERMENTED_SPIDER_EYE);
+                ItemMeta eyeMeta = eye.getItemMeta();
+                eyeMeta.addEnchant(Enchantment.BINDING_CURSE,10,true);
+                eyeMeta.setDisplayName( ChatColor.GOLD + "" + ChatColor.BOLD  + "İblis gözü");
+                ArrayList<String>eyeLore = new ArrayList<>();
+                eyeLore.add("Eskiden böyle gözükmüyordu");
+                eyeMeta.setLore(eyeLore);
+                eye.setItemMeta(eyeMeta);
+
+                deathEvent.getDrops().add(eye);
+
             }
             else if(deathEvent.getEntity().getCustomName().equals(ChatColor.RED + "" + ChatColor.BOLD + "Karanlık getiren")){
 
+                deathEvent.getDrops().clear();
+                deathEvent.setDroppedExp(80);
+
+                ItemStack ender = new ItemStack(Material.ECHO_SHARD);
+                ItemMeta enderMeta = ender.getItemMeta();
+                enderMeta.setDisplayName("Enderman'in Ruh Taşı");
+                enderMeta.addEnchant(Enchantment.BINDING_CURSE,10,true);
+                ArrayList<String> enderLore = new ArrayList<>();
+                enderLore.add("Yozlaşmış bir ruh");
+                enderMeta.setLore(enderLore);
+                ender.setItemMeta(enderMeta);
+
+                deathEvent.getDrops().add(ender);
             }
 
 
@@ -483,5 +509,7 @@ public class CursedEvents implements Listener {
             }
 
     }
+
+
 
 }

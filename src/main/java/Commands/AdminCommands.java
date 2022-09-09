@@ -153,6 +153,9 @@ public class AdminCommands implements CommandExecutor {
 
                 if(player.isOp()){
 
+                   spawnLoc = player.getLocation();
+                  player.sendMessage(ChatColor.GREEN + "Spawn noktası kaydedildi");
+
 
                 }
 

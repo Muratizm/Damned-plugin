@@ -24,7 +24,7 @@ public class MenuListener implements Listener {
     private HashMap<UUID, Long> cooldown;
 
 
-    public void getEmptySpaces(HumanEntity entity) {
+    private void getEmptySpaces(final HumanEntity entity) {
 
         ItemStack[] itemStack = entity.getInventory().getStorageContents();
 
@@ -88,7 +88,6 @@ public class MenuListener implements Listener {
             // first time writing that command
             if (!this.cooldown.containsKey(humanEntity.getUniqueId())) {
 
-                this.cooldown.put(humanEntity.getUniqueId(), System.currentTimeMillis());
 
 
                 if (event.getCurrentItem().getType() == Material.COAL) {

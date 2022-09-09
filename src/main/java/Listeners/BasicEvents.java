@@ -1,5 +1,6 @@
 package Listeners;
 
+import Commands.AdminCommands;
 import me.muratcan.cursedplugin.CursedPlugin;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -12,6 +13,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
 public class BasicEvents implements Listener {
+
+
+
 
 
     private final CursedPlugin plugin;
@@ -50,6 +54,12 @@ public class BasicEvents implements Listener {
 
     @EventHandler
     public void WhenPlayerDead(PlayerDeathEvent event) {
+
+        if(plugin.getConfig().getLocation("evkaydet") == null && AdminCommands.spawnLoc != null){
+
+            event.getEntity().teleport(AdminCommands.spawnLoc);
+
+        }
 
 
     }

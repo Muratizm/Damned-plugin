@@ -9,10 +9,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Item;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -40,8 +37,23 @@ public class PlayerCommands implements CommandExecutor {
 
                 Player player = (Player) commandSender;
 
-
                 plugin.getConfig().set("evkaydet", player.getPlayer().getLocation());
+                ArmorStand hologram = (ArmorStand) Bukkit.getServer().getWorld("World").spawnEntity(player.getLocation(), EntityType.ARMOR_STAND);
+
+                // not working properly
+
+                hologram.setVisible(false);
+                hologram.setGravity(false);
+                hologram.setInvulnerable(true);
+                if (hologram.getCustomName() != null) {
+                    hologram.remove();
+
+                }
+
+                hologram.setCustomName(ChatColor.GREEN + "" + ChatColor.BOLD + "Ev");
+                hologram.setCustomNameVisible(true);
+
+
                 plugin.saveConfig();
                 player.sendMessage(ChatColor.GREEN + "Ev konumu kaydedildi");
 
@@ -101,40 +113,38 @@ public class PlayerCommands implements CommandExecutor {
                     ItemStack hand = new ItemStack(player.getInventory().getItemInMainHand());
 
                     System.out.println(player.getInventory().getItemInMainHand());
-                 if(!hand.getData().equals(air.getData())){
+                    if (!hand.getData().equals(air.getData())) {
 
 
-                     int x = 0;
-                     ItemStack[] items = player1.getInventory().getStorageContents();
+                        int x = 0;
+                        ItemStack[] items = player1.getInventory().getStorageContents();
 
-                     for (ItemStack item : items) {
-
-
-                         // aynı tipte iki eşyanın ilk atım stack'ı 0 (null)dan saydığı için yanyana aynı eşyadan 1 tane koyduğunda gönderdiğin an hepsini siler düzeltimesi gerek
-                         // çözüm-1: belki eşyaya lore veya farklı bir isim atayarak engellenebilir enchantla bile engelleniyor
-                         if (item == null) {
-
-                             ItemStack esya = player.getInventory().getItemInMainHand();
-
-                             player.getInventory().remove(player.getInventory().getItemInMainHand());
-                             player1.getInventory().setItem(x,esya);
-                             player.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "Eşya başarıyla gönderildi.");
-                             player1.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + player.getDisplayName() + " Tarafından size " + esya.getType() + " Gönderildi" );
-                             break;
+                        for (ItemStack item : items) {
 
 
-                         }
-                         else if(x == 35){
-                             break;
-                         }
-                         x++;
+                            // aynı tipte iki eşyanın ilk atım stack'ı 0 (null)dan saydığı için yanyana aynı eşyadan 1 tane koyduğunda gönderdiğin an hepsini siler düzeltimesi gerek
+                            // çözüm-1: belki eşyaya lore veya farklı bir isim atayarak engellenebilir enchantla bile engelleniyor
+                            if (item == null) {
 
-                     }
-                     player.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Eğer eşyanız gitmediyse gönderdiğiniz kişide boş yer yoktur.");
-                 }else{
-                     player.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Elinizde Bir eşya tutmanız gerekiyor.");
-                 }
+                                ItemStack esya = player.getInventory().getItemInMainHand();
 
+                                player.getInventory().remove(player.getInventory().getItemInMainHand());
+                                player1.getInventory().setItem(x, esya);
+                                player.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "Eşya başarıyla gönderildi.");
+                                player1.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + player.getDisplayName() + " Tarafından size " + esya.getType() + " Gönderildi");
+                                break;
+
+
+                            } else if (x == 35) {
+                                break;
+                            }
+                            x++;
+
+                        }
+                        player.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Eğer eşyanız gitmediyse gönderdiğiniz kişide boş yer yoktur.");
+                    } else {
+                        player.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Elinizde Bir eşya tutmanız gerekiyor.");
+                    }
 
 
                 }
@@ -253,6 +263,26 @@ public class PlayerCommands implements CommandExecutor {
 
             }
 
+
+        }
+        else if(command.getName().equalsIgnoreCase("başlangıç")){
+
+            if(commandSender instanceof Player){
+
+                Player player = (Player) commandSender;
+
+                if(AdminCommands.spawnLoc != null){
+
+                    player.teleport(AdminCommands.spawnLoc);
+
+                }
+                else{
+
+                    player.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "Başlangıç noktası belirtilmemiş");
+                }
+
+
+            }
 
         }
 

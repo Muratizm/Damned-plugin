@@ -37,6 +37,7 @@ public final class CursedPlugin extends JavaPlugin implements Listener {
         getCommand("uçma").setExecutor(new DonaterCommands());
         getCommand("uçabilir").setExecutor(new AdminCommands());
         getCommand("yardım").setExecutor(new PlayerCommands(this));
+        getCommand("spawnkaydet").setExecutor(new AdminCommands());
 
     }
 
