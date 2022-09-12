@@ -66,11 +66,150 @@ public class MenuListener implements Listener {
 
     }
 
+    private void getEmptySpacesForIron(final HumanEntity entity) {
+
+        ItemStack[] itemStack = entity.getInventory().getStorageContents();
+
+        ArrayList<Integer> spacesL = new ArrayList<>();
+        int amount = 0;
+        int location = 0;
+
+        for (ItemStack item : itemStack) {
+
+            if (item == null) {
+
+                amount++;
+                spacesL.add(location);
+
+            }
+            location++;
+        }
+
+        if (spacesL.size() >= 4) {
+
+
+            entity.getInventory().setItem(spacesL.get(1), new ItemStack(Material.CAKE, 1));
+            entity.getInventory().setItem(spacesL.get(2), new ItemStack(Material.GOLDEN_CARROT, 16));
+            entity.getInventory().setItem(spacesL.get(3), new ItemStack(Material.IRON_INGOT, 32));
+            this.cooldown.put(entity.getUniqueId(), System.currentTimeMillis());
+
+        } else {
+            entity.sendMessage("Envanterinizde en az 4 tane boş yer bulunması gerek");
+        }
+
+    }
+
+    private void getEmptySpacesForGold(final HumanEntity entity) {
+
+        ItemStack[] itemStack = entity.getInventory().getStorageContents();
+
+        ArrayList<Integer> spacesL = new ArrayList<>();
+        int amount = 0;
+        int location = 0;
+
+        for (ItemStack item : itemStack) {
+
+            if (item == null) {
+
+                amount++;
+                spacesL.add(location);
+
+            }
+            location++;
+        }
+
+        if (spacesL.size() >= 4) {
+
+
+            entity.getInventory().setItem(spacesL.get(1), new ItemStack(Material.SOUL_TORCH, 32));
+            entity.getInventory().setItem(spacesL.get(2), new ItemStack(Material.GLISTERING_MELON_SLICE, 16));
+            entity.getInventory().setItem(spacesL.get(3), new ItemStack(Material.GOLD_INGOT, 32));
+            entity.getInventory().setItem(spacesL.get(3), new ItemStack(Material.IRON_INGOT, 16));
+
+
+            this.cooldown.put(entity.getUniqueId(), System.currentTimeMillis());
+
+        } else {
+            entity.sendMessage("Envanterinizde en az 4 tane boş yer bulunması gerek");
+        }
+    }
+
+    private void getEmptySpacesForDiamond(final HumanEntity entity) {
+
+        ItemStack[] itemStack = entity.getInventory().getStorageContents();
+
+        ArrayList<Integer> spacesL = new ArrayList<>();
+        int amount = 0;
+        int location = 0;
+
+        for (ItemStack item : itemStack) {
+
+            if (item == null) {
+
+                amount++;
+                spacesL.add(location);
+
+            }
+            location++;
+        }
+
+        if (spacesL.size() >= 4) {
+
+
+            entity.getInventory().setItem(spacesL.get(1), new ItemStack(Material.SOUL_TORCH, 32));
+            entity.getInventory().setItem(spacesL.get(2), new ItemStack(Material.GOLDEN_APPLE, 16));
+            entity.getInventory().setItem(spacesL.get(3), new ItemStack(Material.DIAMOND_ORE, 32));
+            entity.getInventory().setItem(spacesL.get(3), new ItemStack(Material.GOLD_INGOT, 16));
+
+
+            this.cooldown.put(entity.getUniqueId(), System.currentTimeMillis());
+
+        } else {
+            entity.sendMessage("Envanterinizde en az 4 tane boş yer bulunması gerek");
+        }
+    }
+
+    private void getEmptySpacesForEmerald(final HumanEntity entity) {
+
+        ItemStack[] itemStack = entity.getInventory().getStorageContents();
+
+        ArrayList<Integer> spacesL = new ArrayList<>();
+        int amount = 0;
+        int location = 0;
+
+        for (ItemStack item : itemStack) {
+
+            if (item == null) {
+
+                amount++;
+                spacesL.add(location);
+
+            }
+            location++;
+        }
+
+        if (spacesL.size() >= 4) {
+
+
+            entity.getInventory().setItem(spacesL.get(1), new ItemStack(Material.SOUL_TORCH, 32));
+            entity.getInventory().setItem(spacesL.get(2), new ItemStack(Material.ENCHANTED_GOLDEN_APPLE, 16));
+            entity.getInventory().setItem(spacesL.get(3), new ItemStack(Material.DIAMOND_BLOCK, 16));
+            entity.getInventory().setItem(spacesL.get(3), new ItemStack(Material.RABBIT_STEW, 16));
+
+
+            this.cooldown.put(entity.getUniqueId(), System.currentTimeMillis());
+
+        } else {
+            entity.sendMessage("Envanterinizde en az 4 tane boş yer bulunması gerek");
+        }
+    }
+
     public MenuListener() {
 
         this.cooldown = new HashMap<>();
 
     }
+
 
     @EventHandler
     public void KitMenu(InventoryClickEvent event) {
@@ -89,7 +228,6 @@ public class MenuListener implements Listener {
             if (!this.cooldown.containsKey(humanEntity.getUniqueId())) {
 
 
-
                 if (event.getCurrentItem().getType() == Material.COAL) {
 
                     //Starter items
@@ -97,29 +235,28 @@ public class MenuListener implements Listener {
 
                     getEmptySpaces(humanEntity);
 
-
                     humanEntity.closeInventory();
                 } else if (event.getCurrentItem().getType() == Material.IRON_INGOT) {
 
+                    getEmptySpacesForIron(humanEntity);
 
-                    humanEntity.sendMessage(ChatColor.AQUA + "Eşyalar temin edildi!");
                     humanEntity.closeInventory();
 
                 } else if (event.getCurrentItem().getType() == Material.GOLD_INGOT) {
 
-                    humanEntity.sendMessage(ChatColor.AQUA + "Eşyalar temin edildi!");
+                    getEmptySpacesForGold(humanEntity);
                     humanEntity.closeInventory();
 
 
                 } else if (event.getCurrentItem().getType() == Material.DIAMOND) {
 
-                    humanEntity.sendMessage(ChatColor.AQUA + "Eşyalar temin edildi!");
+                    getEmptySpacesForDiamond(humanEntity);
                     humanEntity.closeInventory();
 
 
                 } else if (event.getCurrentItem().getType() == Material.EMERALD) {
 
-                    humanEntity.sendMessage(ChatColor.AQUA + "Eşyalar temin edildi!");
+                    getEmptySpacesForEmerald(humanEntity);
                     humanEntity.closeInventory();
 
 
@@ -149,20 +286,27 @@ public class MenuListener implements Listener {
 
                     } else if (event.getCurrentItem().getType() == Material.IRON_INGOT) {
 
+                        getEmptySpacesForIron(humanEntity);
 
-                        humanEntity.sendMessage(ChatColor.AQUA + "Eşyalar temin edildi!");
+                        humanEntity.closeInventory();
 
                     } else if (event.getCurrentItem().getType() == Material.GOLD_INGOT) {
 
-                        humanEntity.sendMessage(ChatColor.AQUA + "Eşyalar temin edildi!");
+                        getEmptySpacesForGold(humanEntity);
+
+                        humanEntity.closeInventory();
 
                     } else if (event.getCurrentItem().getType() == Material.DIAMOND) {
 
-                        humanEntity.sendMessage(ChatColor.AQUA + "Eşyalar temin edildi!");
+                        getEmptySpacesForDiamond(humanEntity);
+
+                        humanEntity.closeInventory();
 
                     } else if (event.getCurrentItem().getType() == Material.EMERALD) {
 
-                        humanEntity.sendMessage(ChatColor.AQUA + "Eşyalar temin edildi!");
+                        getEmptySpacesForEmerald(humanEntity);
+
+                        humanEntity.closeInventory();
 
                     } else {
                         humanEntity.sendMessage(ChatColor.RED + "Bu ekipmanı alacak yetkiye sahip değilsiniz.");

@@ -3,23 +3,34 @@ package me.muratcan.cursedplugin;
 import Commands.AdminCommands;
 import Commands.DonaterCommands;
 import Commands.PlayerCommands;
+import CustomEnchantment.LifeStealEnchantment;
+import CustomEvents.SpecialEntityWalking;
 import Listeners.BasicEvents;
 import Listeners.CursedEvents;
 import Listeners.MenuListener;
+import org.bukkit.NamespacedKey;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.lang.reflect.Field;
+import java.util.HashMap;
+
 public final class CursedPlugin extends JavaPlugin implements Listener {
 
+    private static CursedPlugin plugin;
+    public static LifeStealEnchantment lifeStealEnchantment;
     @Override
     public void onEnable() {
+
+        plugin = this;
 
         //Config init
         getConfig().options().copyDefaults();
         saveDefaultConfig();
 
         //Listener Reg
-        getServer().getPluginManager().registerEvents(new CursedEvents(), this);
+        getServer().getPluginManager().registerEvents(new CursedEvents(this), this);
         getServer().getPluginManager().registerEvents(new BasicEvents(this), this);
         getServer().getPluginManager().registerEvents(new MenuListener(),this);
 
@@ -38,8 +49,18 @@ public final class CursedPlugin extends JavaPlugin implements Listener {
         getCommand("uçabilir").setExecutor(new AdminCommands());
         getCommand("yardım").setExecutor(new PlayerCommands(this));
         getCommand("spawnkaydet").setExecutor(new AdminCommands());
+        getCommand("başlangıç").setExecutor(new PlayerCommands(this));
+
 
     }
+
+
+    public static CursedPlugin getInstance(){
+
+        return plugin;
+    }
+
+
 
 
 }

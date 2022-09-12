@@ -1,5 +1,9 @@
 package Listeners;
 
+import CustomEnchantment.LifeStealEnchantment;
+import CustomEnchantment.PosionEnchantment;
+import CustomEvents.SpecialEntityWalking;
+import me.muratcan.cursedplugin.CursedPlugin;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.enchantments.Enchantment;
@@ -13,13 +17,22 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
-import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Random;
 
 
 public class CursedEvents implements Listener {
 
+
+    private CursedPlugin plugin;
+    private double takenHeal;
+
+    public CursedEvents(CursedPlugin cursedPlugin) {
+
+        this.plugin = cursedPlugin;
+
+    }
 
     //Cursed Sheep
     @EventHandler
@@ -41,7 +54,7 @@ public class CursedEvents implements Listener {
 
     //Cursed DEATH give an undead entities second chance
     @EventHandler
-    public void Necromancer(EntityDeathEvent deathEvent) {
+    public void Necromancer(EntityDeathEvent deathEvent) throws NullPointerException {
         // Resurrection şans etkeni ekle ama en son
 
         // When an undead dies, it backs to life once
@@ -251,6 +264,8 @@ public class CursedEvents implements Listener {
                             spl2.setRemoveWhenFarAway(true);
                             spl3.setRemoveWhenFarAway(true);
 
+                            Bukkit.getServer().getPluginManager().callEvent(new SpecialEntityWalking(spl1, plugin));
+
 
                             sp1.setTarget(deathEvent.getEntity().getKiller());
                             sp2.setTarget(deathEvent.getEntity().getKiller());
@@ -279,14 +294,13 @@ public class CursedEvents implements Listener {
                             sp3.setCustomNameVisible(true);
 
 
-
                         }
 
 
                         break;
                     case ENDERMAN:
 
-                         // Bir tür bug var kontrol et
+                        // Bir tür bug var kontrol et
 
                         if (deathEvent.getEntity().getCustomName() == null) {
 
@@ -322,7 +336,29 @@ public class CursedEvents implements Listener {
 
                         break;
 
+                    case HORSE:
 
+
+                        Bukkit.getServer().getWorld("World").playSound(location, Sound.BLOCK_PORTAL_AMBIENT, SoundCategory.AMBIENT, 500, 5000);
+                        Creature entity = (Creature) Bukkit.getServer().getWorld("World").spawnEntity(location, EntityType.ZOMBIE_HORSE);
+
+                        entity.playEffect(EntityEffect.TOTEM_RESURRECT);
+                        entity.setTarget(deathEvent.getEntity().getKiller());
+
+
+                        break;
+
+                    case ZOMBIE_HORSE:
+
+
+                        Bukkit.getServer().getWorld("World").playSound(location, Sound.BLOCK_PORTAL_AMBIENT, SoundCategory.AMBIENT, 500, 5000);
+                        Creature entity3 = (Creature) Bukkit.getServer().getWorld("World").spawnEntity(location, EntityType.SKELETON_HORSE);
+
+                        entity3.playEffect(EntityEffect.TOTEM_RESURRECT);
+                        entity3.setTarget(deathEvent.getEntity().getKiller());
+
+
+                        break;
                     default:
 
 
@@ -347,10 +383,9 @@ public class CursedEvents implements Listener {
                 MeatMeta.setLore(meat_lore);
                 CursedMeat.setItemMeta(MeatMeta);
 
-                deathEvent.getDrops().add(1,CursedMeat);
+                deathEvent.getDrops().add(1, CursedMeat);
 
-            }
-            else if(deathEvent.getEntity().getCustomName().equals(ChatColor.GOLD + "" + ChatColor.BOLD + "Gölge İskelet")){
+            } else if (deathEvent.getEntity().getCustomName().equals(ChatColor.GOLD + "" + ChatColor.BOLD + "Gölge İskelet")) {
 
                 deathEvent.getDrops().clear();
                 deathEvent.setDroppedExp(55);
@@ -365,15 +400,14 @@ public class CursedEvents implements Listener {
                 MeatMeta.setLore(meat_lore);
                 CursedBone.setItemMeta(MeatMeta);
 
-                deathEvent.getDrops().add(1,CursedBone);
+                deathEvent.getDrops().add(1, CursedBone);
 
-            }
-            else if(deathEvent.getEntity().getCustomName().equals(ChatColor.GOLD + "" + ChatColor.BOLD + "Meteor Creeper")){
+            } else if (deathEvent.getEntity().getCustomName().equals(ChatColor.GOLD + "" + ChatColor.BOLD + "Meteor Creeper")) {
 
                 deathEvent.getDrops().clear();
                 deathEvent.setDroppedExp(45);
                 deathEvent.getDrops().add(new ItemStack(Material.DIAMOND, 1));
-                deathEvent.getDrops().add(new ItemStack(Material.IRON_INGOT,1));
+                deathEvent.getDrops().add(new ItemStack(Material.IRON_INGOT, 1));
 
                 ItemStack CursedPowder = new ItemStack(Material.GUNPOWDER);
                 ItemMeta MeatMeta = CursedPowder.getItemMeta();
@@ -384,15 +418,14 @@ public class CursedEvents implements Listener {
                 MeatMeta.setLore(meat_lore);
                 CursedPowder.setItemMeta(MeatMeta);
 
-                deathEvent.getDrops().add(1,CursedPowder);
+                deathEvent.getDrops().add(1, CursedPowder);
 
-            }
-            else if(deathEvent.getEntity().getCustomName().equals(ChatColor.GOLD + "" + ChatColor.BOLD + "İskelet Süvari")){
+            } else if (deathEvent.getEntity().getCustomName().equals(ChatColor.GOLD + "" + ChatColor.BOLD + "İskelet Süvari")) {
 
                 deathEvent.getDrops().clear();
                 deathEvent.setDroppedExp(70);
                 deathEvent.getDrops().add(new ItemStack(Material.DIAMOND, 1));
-                deathEvent.getDrops().add(new ItemStack(Material.IRON_INGOT,1));
+                deathEvent.getDrops().add(new ItemStack(Material.IRON_INGOT, 1));
 
                 ItemStack CursedShard = new ItemStack(Material.PRISMARINE_SHARD);
                 ItemMeta MeatMeta = CursedShard.getItemMeta();
@@ -406,26 +439,23 @@ public class CursedEvents implements Listener {
                 deathEvent.getDrops().add(CursedShard);
 
 
-
-            }
-            else if(deathEvent.getEntity().getCustomName().equals(ChatColor.GOLD + "" + ChatColor.BOLD + "Sürü")){
+            } else if (deathEvent.getEntity().getCustomName().equals(ChatColor.GOLD + "" + ChatColor.BOLD + "Sürü")) {
 
                 deathEvent.getDrops().clear();
                 deathEvent.setDroppedExp(25);
 
                 ItemStack eye = new ItemStack(Material.FERMENTED_SPIDER_EYE);
                 ItemMeta eyeMeta = eye.getItemMeta();
-                eyeMeta.addEnchant(Enchantment.BINDING_CURSE,10,true);
-                eyeMeta.setDisplayName( ChatColor.GOLD + "" + ChatColor.BOLD  + "İblis gözü");
-                ArrayList<String>eyeLore = new ArrayList<>();
+                eyeMeta.addEnchant(Enchantment.BINDING_CURSE, 10, true);
+                eyeMeta.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "İblis gözü");
+                ArrayList<String> eyeLore = new ArrayList<>();
                 eyeLore.add("Eskiden böyle gözükmüyordu");
                 eyeMeta.setLore(eyeLore);
                 eye.setItemMeta(eyeMeta);
 
                 deathEvent.getDrops().add(eye);
 
-            }
-            else if(deathEvent.getEntity().getCustomName().equals(ChatColor.RED + "" + ChatColor.BOLD + "Karanlık getiren")){
+            } else if (deathEvent.getEntity().getCustomName().equals(ChatColor.RED + "" + ChatColor.BOLD + "Karanlık getiren")) {
 
                 deathEvent.getDrops().clear();
                 deathEvent.setDroppedExp(80);
@@ -433,7 +463,7 @@ public class CursedEvents implements Listener {
                 ItemStack ender = new ItemStack(Material.ECHO_SHARD);
                 ItemMeta enderMeta = ender.getItemMeta();
                 enderMeta.setDisplayName("Enderman'in Ruh Taşı");
-                enderMeta.addEnchant(Enchantment.BINDING_CURSE,10,true);
+                enderMeta.addEnchant(Enchantment.BINDING_CURSE, 10, true);
                 ArrayList<String> enderLore = new ArrayList<>();
                 enderLore.add("Yozlaşmış bir ruh");
                 enderMeta.setLore(enderLore);
@@ -458,7 +488,7 @@ public class CursedEvents implements Listener {
 
         World world = Bukkit.getServer().getWorld("World");
         if (world.getTime() > 12000 && world.getTime() < 24000) {
-            if (type == EntityType.COW || type == EntityType.PIG || type == EntityType.SHEEP || type == EntityType.HORSE) {
+            if (type == EntityType.OCELOT || type == EntityType.WOLF || type == EntityType.FOX || type == EntityType.GOAT) {
 
                 event.setTarget((Player) entity);
 
@@ -481,35 +511,64 @@ public class CursedEvents implements Listener {
 
     }
 
+
+
     @EventHandler
-    public void BlindByEgg(PlayerEggThrowEvent eggs) {
+    public void onEntityMove(PlayerMoveEvent event) {
 
+        if (event.getPlayer() instanceof Zombie) {
 
-        Location hitLoc = eggs.getEgg().getLocation();
+            Zombie entity = (Zombie) event.getPlayer();
 
+        }
 
     }
 
     @EventHandler
-    public void CursedDamage(EntityDamageByEntityEvent event) {
+    public void onPlayerHit(EntityDamageByEntityEvent event) {
 
-        if (event.getDamager().getCustomName() == null) {
-            return;
+        Entity entity = event.getDamager();
+
+        if (entity instanceof Player) {
+            Player player = (Player) entity;
+            Map<Enchantment, Integer> enchantmentMap = player.getInventory().getItemInMainHand().getEnchantments();
+            LivingEntity livingEntity = (LivingEntity) event.getEntity();
+
+
+            if (enchantmentMap.containsKey(new LifeStealEnchantment("LifeLeech"))) {
+
+                //Custom enchantment LifeLeech
+                takenHeal = 20 / 5;
+                double leech = player.getHealth() + 20 / 5;
+
+                ItemStack[] armors = livingEntity.getEquipment().getArmorContents();
+
+                for(ItemStack itemStack : armors){
+                       // alınan iyileştirmeyi azaltma
+                    if(itemStack.getEnchantments().containsKey(new LifeStealEnchantment("AntiHeal"))){
+                        if (leech < player.getHealthScale()) {
+
+                            player.setHealth(leech / 2);
+                        }else{
+                            player.setHealth(leech);
+                        }
+                    }
+                }
+
+
+            }
+            if(enchantmentMap.containsKey(new PosionEnchantment("Posion"))){
+
+
+
+                livingEntity.addPotionEffect(new PotionEffect(PotionEffectType.POISON,500,1));
+
+            }
+
+
         }
 
 
     }
-    @EventHandler
-    public void onEntityMove(PlayerMoveEvent event){
-
-            if(event.getPlayer() instanceof Zombie ){
-
-                Zombie entity = (Zombie) event.getPlayer();
-
-            }
-
-    }
-
-
 
 }
