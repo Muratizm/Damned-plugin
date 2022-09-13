@@ -7,8 +7,16 @@ import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.inventory.ItemStack;
 
 public class AntiHealEnchantment extends Enchantment {
-    public AntiHealEnchantment(String nameSpace) {
-        super(new NamespacedKey(CursedPlugin.getInstance(),nameSpace));
+    private final String name;
+    private final int maxLevel;
+
+
+    public AntiHealEnchantment(String namespace, String name, int level) {
+        super(NamespacedKey.minecraft(namespace));
+
+        this.name = name;
+        this.maxLevel = level;
+
     }
 
     @Override

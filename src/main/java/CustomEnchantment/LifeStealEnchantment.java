@@ -9,18 +9,26 @@ import org.bukkit.inventory.ItemStack;
 public class LifeStealEnchantment extends Enchantment {
 
 
-    public LifeStealEnchantment(String nameSpace) {
-        super(new NamespacedKey(CursedPlugin.getInstance(),nameSpace));
+    private final String name;
+    private final int maxLevel;
+
+
+    public LifeStealEnchantment(String namespace, String name, int level) {
+        super(NamespacedKey.minecraft(namespace));
+
+        this.name = name;
+        this.maxLevel = level;
+
     }
 
     @Override
     public  String getName() {
-        return "Yaşam Yutma";
+        return name;
     }
 
     @Override
     public int getMaxLevel() {
-        return 1;
+        return maxLevel;
     }
 
     @Override

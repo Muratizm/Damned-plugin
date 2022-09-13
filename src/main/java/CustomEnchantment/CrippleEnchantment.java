@@ -1,18 +1,19 @@
 package CustomEnchantment;
 
-import me.muratcan.cursedplugin.CursedPlugin;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.inventory.ItemStack;
 
-public class PosionEnchantment extends Enchantment {
+
+
+public class CrippleEnchantment extends Enchantment {
 
     private final String name;
     private final int maxLevel;
 
 
-    public PosionEnchantment(String namespace, String name, int level) {
+    public CrippleEnchantment(String namespace, String name, int level) {
         super(NamespacedKey.minecraft(namespace));
 
         this.name = name;
