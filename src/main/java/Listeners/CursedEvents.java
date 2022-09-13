@@ -1,5 +1,6 @@
 package Listeners;
 
+import CustomEnchantment.EnchantmentManager;
 import CustomEnchantment.LifeStealEnchantment;
 import CustomEnchantment.PosionEnchantment;
 import CustomEvents.SpecialEntityWalking;
@@ -316,8 +317,10 @@ public class CursedEvents implements Listener {
                             entity.setCustomNameVisible(true);
                             entity.setRemoveWhenFarAway(true);
 
-                            deathEvent.getEntity().getKiller().addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS, 1000, 3));
-                            deathEvent.getEntity().getKiller().addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 300, 2));
+                            deathEvent.getEntity().getKiller().addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS, 1000, 4));
+                            deathEvent.getEntity().getKiller().addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 300, 1));
+                            deathEvent.getEntity().getKiller().setFreezeTicks(700);
+
 
                             entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(50D);
                             entity.getAttribute(Attribute.GENERIC_ATTACK_KNOCKBACK).setBaseValue(25D);
@@ -512,7 +515,6 @@ public class CursedEvents implements Listener {
     }
 
 
-
     @EventHandler
     public void onEntityMove(PlayerMoveEvent event) {
 
@@ -535,33 +537,46 @@ public class CursedEvents implements Listener {
             LivingEntity livingEntity = (LivingEntity) event.getEntity();
 
 
-            if (enchantmentMap.containsKey(new LifeStealEnchantment("LifeLeech"))) {
+            if (player.getInventory().getItemInMainHand() == null) {
+                return;
+            }
+            if (!player.getInventory().getItemInMainHand().hasItemMeta()) {
+                return;
+            }
+            if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR) {
+
+                return;
+            }
+
+            if (player.getInventory().getItemInMainHand().getItemMeta().hasEnchant(EnchantmentManager.lifesteal)) {
 
                 //Custom enchantment LifeLeech
-                takenHeal = 20 / 5;
-                double leech = player.getHealth() + 20 / 5;
+                takenHeal = 10 / 5;
+                double leech = player.getHealth() + 10 / 5;
 
-                ItemStack[] armors = livingEntity.getEquipment().getArmorContents();
-
-                for(ItemStack itemStack : armors){
-                       // alınan iyileştirmeyi azaltma
-                    if(itemStack.getEnchantments().containsKey(new LifeStealEnchantment("AntiHeal"))){
-                        if (leech < player.getHealthScale()) {
-
-                            player.setHealth(leech / 2);
-                        }else{
-                            player.setHealth(leech);
-                        }
-                    }
+                if (leech <= player.getHealthScale()) {
+                    player.setHealth(leech);
+                    player.playEffect(player.getLocation(),Effect.ELECTRIC_SPARK,null);
                 }
 
 
+            } else if (player.getInventory().getItemInMainHand().getItemMeta().hasEnchant(EnchantmentManager.crippleEnchantment)) {
+
+
+                livingEntity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 500, 1));
+                player.playEffect(player.getLocation(),Effect.LAVA_INTERACT,null);
+
+
+            } else if(player.getInventory().getItemInMainHand().getItemMeta().hasEnchant(EnchantmentManager.posion)){
+
+                livingEntity.addPotionEffect(new PotionEffect(PotionEffectType.POISON,300,1));
+                player.playEffect(player.getLocation(),Effect.DRAGON_BREATH,null);
+
             }
-            if(enchantmentMap.containsKey(new PosionEnchantment("Posion"))){
+            else if(player.getInventory().getItemInMainHand().getItemMeta().hasEnchant(EnchantmentManager.blind)){
 
-
-
-                livingEntity.addPotionEffect(new PotionEffect(PotionEffectType.POISON,500,1));
+                livingEntity.addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS,300,3));
+                player.playEffect(player.getLocation(),Effect.DRIPPING_DRIPSTONE,null);
 
             }
 
