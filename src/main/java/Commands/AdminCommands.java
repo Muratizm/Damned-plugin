@@ -1,5 +1,6 @@
 package Commands;
 
+import CustomEnchantment.EnchantmentManager;
 import CustomEnchantment.LifeStealEnchantment;
 import me.muratcan.cursedplugin.CursedPlugin;
 import org.bukkit.Bukkit;
@@ -163,6 +164,100 @@ public class AdminCommands implements CommandExecutor {
                    spawnLoc = player.getLocation();
                   player.sendMessage(ChatColor.GREEN + "Spawn noktası kaydedildi");
 
+
+                }
+
+            }
+
+        }
+        else if(command.getName().equalsIgnoreCase("sakatla")){
+
+
+            if(sender instanceof Player){
+
+                Player player = (Player) sender;
+
+                if(player.isOp()){
+
+                 ItemStack itemStack = new ItemStack(Material.DIAMOND_SWORD);
+                 itemStack.addUnsafeEnchantment(EnchantmentManager.crippleEnchantment,1);
+                  ItemMeta itemMeta = itemStack.getItemMeta();
+                  ArrayList<String> lore = new ArrayList<>();
+                  lore.add(ChatColor.GRAY + "Sakatla I");
+                  itemMeta.setLore(lore);
+                  itemStack.setItemMeta(itemMeta);
+
+                    player.getInventory().addItem(itemStack);
+
+                }
+
+            }
+
+        } else if(command.getName().equalsIgnoreCase("kan")){
+
+
+            if(sender instanceof Player){
+
+                Player player = (Player) sender;
+
+                if(player.isOp()){
+
+                    ItemStack itemStack = new ItemStack(Material.DIAMOND_SWORD);
+                    itemStack.addUnsafeEnchantment(EnchantmentManager.lifesteal,1);
+                    ItemMeta itemMeta = itemStack.getItemMeta();
+                    ArrayList<String> lore = new ArrayList<>();
+                    lore.add(ChatColor.GRAY + "Yaşam Yutma I");
+                    itemMeta.setLore(lore);
+                    itemStack.setItemMeta(itemMeta);
+
+                    player.getInventory().addItem(itemStack);
+
+                }
+
+            }
+
+        }
+         else if(command.getName().equalsIgnoreCase("zehir")){
+
+
+            if(sender instanceof Player){
+
+                Player player = (Player) sender;
+
+                if(player.isOp()){
+
+                    ItemStack itemStack = new ItemStack(Material.DIAMOND_SWORD);
+                    itemStack.addUnsafeEnchantment(EnchantmentManager.posion,1);
+                    ItemMeta itemMeta = itemStack.getItemMeta();
+                    ArrayList<String> lore = new ArrayList<>();
+                    lore.add(ChatColor.GRAY + "Zehirle I");
+                    itemMeta.setLore(lore);
+                    itemStack.setItemMeta(itemMeta);
+
+                    player.getInventory().addItem(itemStack);
+
+                }
+
+            }
+
+        } else if(command.getName().equalsIgnoreCase("kör")){
+
+
+            if(sender instanceof Player){
+
+                Player player = (Player) sender;
+
+                if(player.isOp()){
+
+                    ItemStack itemStack = new ItemStack(Material.DIAMOND_SWORD);
+                    itemStack.addUnsafeEnchantment(EnchantmentManager.blind,1);
+                    ItemMeta itemMeta = itemStack.getItemMeta();
+                    ArrayList<String> lore = new ArrayList<>();
+                    lore.add(ChatColor.GRAY + "Kör Etme I");
+                    itemMeta.setLore(lore);
+                    itemStack.setItemMeta(itemMeta);
+
+                    player.getInventory().addItem(itemStack);
 
                 }
 

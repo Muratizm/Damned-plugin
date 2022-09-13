@@ -65,3 +65,16 @@ commands:
   başlangıç:
     description: global spawn noktasını gönderir
     usage: /başlangıç
+
+  sakatla:
+    description: özel eşya
+    usage: /sakatla
+  kan:
+    description: özel başka eşya
+    usage: /kan
+  zehir:
+    description: başka bir silah
+    usage: /zehir
+  kör:
+    description: kör eden silah
+    usage: /kör

@@ -41,6 +41,7 @@ public class DonaterCommands implements CommandExecutor {
                 ItemMeta itemMeta = itemStack.getItemMeta();
                 Damageable damageable = (Damageable) itemMeta;
 
+
                   if(itemStack.getType() == Material.DIAMOND_SWORD && itemStack != null){
 
                       damageable.setDamage(-Material.DIAMOND_SWORD.getMaxDurability());
